@@ -68,7 +68,7 @@ const PaymentPopup = props => {
 						<p className="twetch-pay-close">Close</p>
 					</div>
 					<div className="twetch-pay-body">
-						<FormControl variant="outlined">
+						<FormControl variant="outlined" margin="dense">
 							<Select value={wallet} onChange={handleChange}>
 								{Object.keys(wallets).map(e => renderWallet(e))}
 							</Select>
