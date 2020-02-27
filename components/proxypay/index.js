@@ -7,16 +7,20 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 const key = bitcoin.PrivateKey.fromRandom().toString();
 
-// resolve paymails
-// exchange-rate
-
 const ProxyPay = props => {
 	const [snackbarOpen, setSnackbar] = useState(false);
 	const outputs = props.outputs.map(each => ({
 		...each,
 		satoshis: each.amount * 100000000
 	}));
-	const proxypayProps = { ...props, outputs, key };
+	const proxypayProps = {
+		...props,
+		outputs,
+		onPayment: payment => {
+			return props.onPayment({ txid: payment.txid });
+		},
+		key
+	};
 
 	const payment = proxypay({ ...proxypayProps });
 
@@ -25,7 +29,7 @@ const ProxyPay = props => {
 		evt.stopPropagation();
 
 		copy(payment.address, { message: 'copy to clipboard' });
-		setSnackbar(true)
+		setSnackbar(true);
 	};
 
 	const handleCloseSnackbar = () => {

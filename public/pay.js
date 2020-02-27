@@ -22,6 +22,33 @@ class TwetchPay {
 		this.iframe.style.width = '0px';
 		this.iframe.style.height = '0px';
 	}
+
+	async pay(props) {
+		this.iframe.contentWindow.postMessage({ from: 'twetch-pay', props });
+		this.displayIframe();
+
+		return new Promise((resolve, reject) => {
+			window.addEventListener('message', event => {
+				const data = event.data;
+				if (data && typeof data === 'object' && data.action) {
+					if (data.action === 'closeTwetchPay') {
+						this.hideIframe();
+						return resolve();
+					}
+
+					if (data.action === 'paymentTwetchPay') {
+						this.hideIframe();
+						return resolve(data.payment);
+					}
+
+					if (data.action === 'errorTwetchPay') {
+						this.hideIframe();
+						return reject(data.error);
+					}
+				}
+			});
+		});
+	}
 }
 
 const twetchPay = new TwetchPay();

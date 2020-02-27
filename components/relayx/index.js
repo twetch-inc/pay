@@ -3,14 +3,16 @@ import Script from 'react-load-script';
 const RelayX = props => {
 	const handleLoad = () => {
 		const div = document.getElementById('relayx-button');
-		const { outputs, onPayment, onError } = props;
 
-		if (!outputs || !outputs.length) {
+		if (!props.outputs || !props.outputs.length) {
 			return;
 		}
 
 		window.relayone.render(div, {
-			...props
+			...props,
+			onPayment: payment => {
+				return props.onPayment({ txid: payment.txid });
+			}
 		});
 	};
 

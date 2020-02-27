@@ -1,7 +1,23 @@
 import Head from 'next/head';
 import PaymentPopup from '../components/payment-popup';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
+	const [paymentProps, setPaymentProps] = useState({});
+
+	useEffect(() => {
+		window.addEventListener(
+			'message',
+			event => {
+				const data = event.data;
+				if (data && typeof data === 'object' && data.from === 'twetch-pay') {
+					setPaymentProps(data.props);
+				}
+			},
+			false
+		);
+	});
+
 	return (
 		<div className="container">
 			<Head>
@@ -10,7 +26,7 @@ const Home = () => {
 				<link rel="stylesheet" href="https://use.typekit.net/kwm6mcp.css" />
 			</Head>
 			<main>
-				<PaymentPopup />
+				<PaymentPopup {...paymentProps} />
 			</main>
 			<style jsx global>{`
 				html,

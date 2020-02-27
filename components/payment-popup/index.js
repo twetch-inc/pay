@@ -34,7 +34,7 @@ const outputs = [
 ];
 
 const PaymentPopup = props => {
-	const [wallet, setWallet] = useState('proxypay');
+	const [wallet, setWallet] = useState('moneybutton');
 	const [paid, setPaid] = useState(false);
 
 	const handleChange = (evt, value) => {
@@ -55,24 +55,43 @@ const PaymentPopup = props => {
 		</MenuItem>
 	);
 
+	const handleClose = () => {
+		window.top.postMessage({ action: 'closeTwetchPay' });
+	};
+
 	const walletProps = {
 		outputs,
-		onError: () => {},
-		onPayment: () => {
+		...props,
+		onError: error => {
+			window.top.postMessage({ action: 'errorTwetchPay', error });
+		},
+		onPayment: payment => {
+			window.top.postMessage({ action: 'paymentTwetchPay', payment });
 			setPaid(true);
+			setTimeout(() => {
+				setPaid(false);
+			}, 1000);
 		}
 	};
 
 	return (
-		<div className="twetch-pay-container">
+		<div className="twetch-pay-container" onClick={handleClose}>
 			<div className="twetch-pay-grow" />
 			<div className="twetch-pay-wrapper">
 				<div className="twetch-pay-grow" />
-				<div className="twetch-pay">
+				<div
+					className="twetch-pay"
+					onClick={evt => {
+						evt.preventDefault();
+						evt.stopPropagation();
+					}}
+				>
 					<div className="twetch-pay-header">
 						<img src="/logo.svg" />
 						<div className="twetch-pay-grow" />
-						<p className="twetch-pay-close">Close</p>
+						<p className="twetch-pay-close" onClick={handleClose}>
+							Close
+						</p>
 					</div>
 					<div className="twetch-pay-body">
 						<FormControl variant="outlined" margin="dense" className="twetch-pay-form-control">
@@ -108,10 +127,10 @@ const PaymentPopup = props => {
 						{paid && (
 							<div>
 								<img
-									style={{ margin: '0 auto', display: 'block', height: '150px', width: '150px' }}
+									style={{ margin: '0 auto', display: 'block', height: '70px', width: '70px' }}
 									src="/checkmark.svg"
 								/>
-								<div style={{ textAlign: 'center', marginTop: '24px' }}>Payment Success</div>
+								<div style={{ textAlign: 'center', marginTop: '16px' }}>Payment Sent</div>
 							</div>
 						)}
 					</div>

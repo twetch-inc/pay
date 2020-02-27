@@ -5,5 +5,19 @@
 	</head>
 	<body>
 		Twetch Pay Demo
+		<button id="button" onclick="showTwetchPay()">Click Me</button>
 	</body>
+	<script>
+		async function showTwetchPay() {
+			const response = await twetchPay.pay({
+				outputs: [{
+					to: '1harrywon46Aq2b2TK29wKviKUiDzc9EQ',
+					amount: 0.00005,
+					currency: 'BSV'
+				}]
+			});
+
+			console.log({ response });
+		}
+	</script>
 </html>
