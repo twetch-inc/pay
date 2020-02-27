@@ -1,11 +1,14 @@
 const Styles = () => (
 	<style jsx="true">{`
 		.twetch-pay-container {
-			height: 100vh;
+			height: 100%;
+			min-height: 100vh;
 			width: 100vw;
 			background: rgba(0, 0, 0, .5);
 			display: flex;
 			flex-direction: column;
+			position: fixed;
+			bottom: 0;
 		}
 
 		.twetch-pay-grow {

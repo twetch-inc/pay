@@ -82,7 +82,8 @@ const ProxyPay = props => {
 						border: '1px solid #DEDEDE',
 						borderRadius: '100px',
 						marginTop: '16px',
-						cursor: 'pointer'
+						cursor: 'pointer',
+						maxWidth: '100%'
 					}}
 					onClick={handleCopy}
 				>
@@ -92,7 +93,10 @@ const ProxyPay = props => {
 							lineHeight: '16px',
 							color: '#828282',
 							margin: '0',
-							marginRight: '36px'
+							marginRight: '18px',
+							whiteSpace: 'nowrap',
+							textOverflow: 'ellipsis',
+							overflow: 'hidden'
 						}}
 					>
 						{payment.address}
