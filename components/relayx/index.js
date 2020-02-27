@@ -8,8 +8,15 @@ const RelayX = props => {
 			return;
 		}
 
+		const outputs = props.outputs.map(each => ({
+			...each,
+			currency: 'BSV'
+		}));
+
 		window.relayone.render(div, {
 			...props,
+			...props.relayxProps,
+			outputs,
 			onPayment: payment => {
 				return props.onPayment({ txid: payment.txid });
 			}
