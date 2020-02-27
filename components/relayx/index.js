@@ -17,7 +17,7 @@ const RelayX = props => {
 	return (
 		<>
 			<Script url="https://one.relayx.io/relayone.js" onLoad={handleLoad} />
-			<div id="relayx-button" />
+			<div id="relayx-button" style={{ height: '43px' }} />
 		</>
 	);
 };

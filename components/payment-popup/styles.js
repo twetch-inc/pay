@@ -1,5 +1,5 @@
 const Styles = () => (
-	<style jsx>{`
+	<style jsx="true">{`
 		.twetch-pay-container {
 			height: 100vh;
 			width: 100vw;
@@ -48,6 +48,42 @@ const Styles = () => (
 
 		.twetch-pay-bumper {
 			height: 10vh;
+		}
+
+		.twetch-pay-form-control {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		.twetch-pay-select {
+			color: #696969;
+			font-size: 14px;
+			line-height: 17px;
+		}
+
+		.twetch-pay-menu-list {
+			padding: 0;
+		}
+
+		.twetch-pay-menu-item {
+			font-size: 14px;
+			line-height: 20px;
+			color: #696969;
+			padding: 12px
+		}
+
+		.twetch-pay-menu-item-selected {
+			color: #FFFFFF;
+			background-color: #085AF6 !important;
+		}
+
+		.twetch-pay-select-outlined {
+			border: 1px solid #F2F2F2 !important;
+		}
+
+		.MuiOutlinedInput-notchedOutline {
+			border-color: #F2F2F2 !important;
+			border-width: 1px !important;
 		}
 	`}</style>
 );

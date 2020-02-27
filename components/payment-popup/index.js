@@ -43,7 +43,14 @@ const PaymentPopup = props => {
 	};
 	const Wallet = wallets[wallet].Element;
 	const renderWallet = each => (
-		<MenuItem value={each} key={each}>
+		<MenuItem
+			classes={{
+				root: 'twetch-pay-menu-item',
+				selected: 'twetch-pay-menu-item-selected'
+			}}
+			value={each}
+			key={each}
+		>
 			{wallets[each].name}
 		</MenuItem>
 	);
@@ -68,8 +75,30 @@ const PaymentPopup = props => {
 						<p className="twetch-pay-close">Close</p>
 					</div>
 					<div className="twetch-pay-body">
-						<FormControl variant="outlined" margin="dense">
-							<Select value={wallet} onChange={handleChange}>
+						<FormControl variant="outlined" margin="dense" className="twetch-pay-form-control">
+							<Select
+								value={wallet}
+								onChange={handleChange}
+								className="twetch-pay-select"
+								MenuProps={{
+									MenuListProps: {
+										classes: {
+											root: 'twetch-pay-menu-list'
+										}
+									},
+									anchorOrigin: {
+										vertical: 'bottom',
+										horizontal: 'left'
+									},
+									transformOrigin: {
+										vertical: 'top',
+										horizontal: 'left'
+									}
+								}}
+								classes={{
+									outlined: 'twetch-pay-select-outlined'
+								}}
+							>
 								{Object.keys(wallets).map(e => renderWallet(e))}
 							</Select>
 						</FormControl>
