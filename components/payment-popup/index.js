@@ -20,8 +20,8 @@ const wallets = {
 		Element: RelayX
 	}
 	//proxypay: {
-		//name: 'Scan QR',
-		//Element: ProxyPay
+	//name: 'Scan QR',
+	//Element: ProxyPay
 	//}
 };
 
@@ -56,17 +56,26 @@ const PaymentPopup = props => {
 	);
 
 	const handleClose = () => {
-		window.top.postMessage({ action: 'closeTwetchPay' });
+		window.top.postMessage({ action: 'closeTwetchPay' }, props.origin);
 	};
 
 	const walletProps = {
 		outputs,
 		...props,
+		moneybuttonProps: {
+			...props.moneybuttonProps,
+			onCryptoOperations: cryptoOperations => {
+				window.top.postMessage(
+					{ action: 'cryptoOperationsTwetchPay', cryptoOperations },
+					props.origin
+				);
+			}
+		},
 		onError: error => {
-			window.top.postMessage({ action: 'errorTwetchPay', error });
+			window.top.postMessage({ action: 'errorTwetchPay', error }, props.origin);
 		},
 		onPayment: payment => {
-			window.top.postMessage({ action: 'paymentTwetchPay', payment });
+			window.top.postMessage({ action: 'paymentTwetchPay', payment }, props.origin);
 			setPaid(true);
 			setTimeout(() => {
 				setPaid(false);
@@ -93,35 +102,39 @@ const PaymentPopup = props => {
 							Close
 						</p>
 					</div>
-					<div className="twetch-pay-body">
-						<FormControl variant="outlined" margin="dense" className="twetch-pay-form-control">
-							<Select
-								value={wallet}
-								onChange={handleChange}
-								className="twetch-pay-select"
-								MenuProps={{
-									MenuListProps: {
-										classes: {
-											root: 'twetch-pay-menu-list'
+					{props.wallets.length > 1 && (
+						<div className="twetch-pay-body">
+							<FormControl variant="outlined" margin="dense" className="twetch-pay-form-control">
+								<Select
+									value={wallet}
+									onChange={handleChange}
+									className="twetch-pay-select"
+									MenuProps={{
+										MenuListProps: {
+											classes: {
+												root: 'twetch-pay-menu-list'
+											}
+										},
+										anchorOrigin: {
+											vertical: 'bottom',
+											horizontal: 'left'
+										},
+										transformOrigin: {
+											vertical: 'top',
+											horizontal: 'left'
 										}
-									},
-									anchorOrigin: {
-										vertical: 'bottom',
-										horizontal: 'left'
-									},
-									transformOrigin: {
-										vertical: 'top',
-										horizontal: 'left'
-									}
-								}}
-								classes={{
-									outlined: 'twetch-pay-select-outlined'
-								}}
-							>
-								{Object.keys(wallets).map(e => renderWallet(e))}
-							</Select>
-						</FormControl>
-					</div>
+									}}
+									classes={{
+										outlined: 'twetch-pay-select-outlined'
+									}}
+								>
+									{Object.keys(wallets)
+										.filter(e => props.wallets.find(w => w === e))
+										.map(e => renderWallet(e))}
+								</Select>
+							</FormControl>
+						</div>
+					)}
 					<div className="twetch-pay-body">
 						{!paid && <Wallet {...walletProps} />}
 						{paid && (

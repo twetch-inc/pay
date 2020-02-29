@@ -3,7 +3,9 @@ import PaymentPopup from '../components/payment-popup';
 import { useEffect, useState } from 'react';
 
 const Home = () => {
-	const [paymentProps, setPaymentProps] = useState({});
+	const [paymentProps, setPaymentProps] = useState({
+		wallets: ['moneybutton', 'relayx']
+	});
 
 	useEffect(() => {
 		window.addEventListener(
@@ -11,7 +13,7 @@ const Home = () => {
 			event => {
 				const data = event.data;
 				if (data && typeof data === 'object' && data.from === 'twetch-pay') {
-					setPaymentProps(data.props);
+					setPaymentProps({ ...paymentProps, ...data.props, origin: event.origin });
 				}
 			},
 			false
