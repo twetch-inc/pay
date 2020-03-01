@@ -32,6 +32,10 @@ class TwetchPay {
 			delete props.moneybuttonProps.onCryptoOperations;
 		}
 
+		if (!this.iframe.contentWindow) {
+			return;
+		}
+
 		this.iframe.contentWindow.postMessage({ from: 'twetch-pay', props }, this.origin);
 		this.displayIframe();
 
