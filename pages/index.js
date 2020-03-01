@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 const Home = () => {
 	const [paymentProps, setPaymentProps] = useState({
-		wallets: ['moneybutton', 'relayx']
+		wallets: ['moneybutton', 'relayx', 'proxypay']
 	});
 
 	useEffect(() => {

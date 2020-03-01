@@ -26,10 +26,22 @@ class TwetchPay {
 
 	async pay(props) {
 		let onCryptoOperations;
+		let onError;
+		let onPayment;
 
 		if (props.moneybuttonProps && props.moneybuttonProps.onCryptoOperations) {
 			onCryptoOperations = props.moneybuttonProps.onCryptoOperations;
 			delete props.moneybuttonProps.onCryptoOperations;
+		}
+
+		if (props.onPayment) {
+			onPayment = props.onPayment;
+			delete props.onPayment;
+		}
+
+		if (props.onError) {
+			onError = props.onError;
+			delete props.onError;
 		}
 
 		if (!this.iframe.contentWindow) {
@@ -51,10 +63,12 @@ class TwetchPay {
 						},
 						paymentTwetchPay: () => {
 							this.hideIframe();
+							onPayment && onPayment(data.payment);
 							return resolve(data.payment);
 						},
 						errorTwetchPay: () => {
 							this.hideIframe();
+							onError && onError(data.error);
 							return reject(data.error);
 						},
 						cryptoOperationsTwetchPay: () => {

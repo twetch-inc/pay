@@ -18,11 +18,11 @@ const wallets = {
 	relayx: {
 		name: 'RelayX',
 		Element: RelayX
+	},
+	proxypay: {
+		name: 'Scan QR',
+		Element: ProxyPay
 	}
-	//proxypay: {
-	//name: 'Scan QR',
-	//Element: ProxyPay
-	//}
 };
 
 const outputs = [
