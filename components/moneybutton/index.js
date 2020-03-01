@@ -12,7 +12,7 @@ const MoneyButton = props => {
 			{...props.moneybuttonProps}
 			outputs={outputs}
 			onPayment={payment => {
-				return props.onPayment({ txid: payment.txid });
+				return props.onPayment({ txid: payment.txid, rawtx: payment.rawtx });
 			}}
 		/>
 	);

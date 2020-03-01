@@ -13,12 +13,18 @@ const RelayX = props => {
 			currency: 'BSV'
 		}));
 
-		window.relayone.render(div, {
+		const walletProps = {
 			...props,
 			...props.relayxProps,
-			outputs,
+			outputs
+		};
+
+		delete walletProps.moneybuttonProps;
+
+		window.relayone.render(div, {
+			...walletProps,
 			onPayment: payment => {
-				return props.onPayment({ txid: payment.txid });
+				return props.onPayment({ txid: payment.txid, rawtx: payment.rawTx });
 			}
 		});
 	};
