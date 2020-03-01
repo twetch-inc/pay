@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 4000",
     "build": "next build",
-    "start": "next start",
-    "deploy": "now deploy -n twetch-pay --prod"
+    "build-browser": "node_modules/browserify/bin/cmd.js src/pay.js -o public/pay.js && node_modules/terser/bin/terser -o public/pay.js --module --compress --mangle -- public/pay.js && rm -f public/pay.js.tmp-* || true",
+    "deploy": "now deploy -n twetch-pay --prod",
+    "dev": "next dev -p 4000",
+    "dev": "nodemon --exec npm run build-browser",
+    "start": "next start"
   },
   "dependencies": {
     "@material-ui/core": "4.9.4",
@@ -20,5 +22,10 @@
     "react-dom": "16.12.0",
     "react-load-script": "0.0.6",
     "react-markdown": "4.3.1"
+  },
+  "devDependencies": {
+    "browserify": "16.5.0",
+    "nodemon": "2.0.2",
+    "terser": "4.6.4"
   }
 }
