@@ -24,7 +24,21 @@
   },
   "devDependencies": {
     "browserify": "16.5.0",
+    "husky": "4.2.3",
+    "lint-staged": "10.0.8",
     "nodemon": "2.0.2",
     "terser": "4.6.4"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier --write",
+      "npm run build-browser",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
