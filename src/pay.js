@@ -52,7 +52,8 @@ class TwetchPay {
 		this.displayIframe();
 
 		return new Promise((resolve, reject) => {
-			window.addEventListener('message', event => {
+			window.addEventListener('message', function respond(event) {
+				window.removeEventListener('message', respond);
 				const data = event.data;
 
 				if (data && typeof data === 'object' && data.action) {
