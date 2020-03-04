@@ -53,7 +53,6 @@ class TwetchPay {
 
 		return new Promise((resolve, reject) => {
 			window.addEventListener('message', function respond(event) {
-				window.removeEventListener('message', respond);
 				const data = event.data;
 
 				if (data && typeof data === 'object' && data.action) {
@@ -79,6 +78,8 @@ class TwetchPay {
 					}[data.action];
 
 					action && action();
+					console.log('respond');
+					window.removeEventListener('message', respond);
 				}
 			});
 		});

@@ -32,8 +32,7 @@
   "lint-staged": {
     "**/*.js": [
       "prettier --write",
-      "npm run build-browser",
-      "npm run deploy"
+      "npm run build-browser"
     ]
   },
   "husky": {
