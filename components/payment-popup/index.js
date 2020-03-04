@@ -65,6 +65,7 @@ const PaymentPopup = props => {
 		moneybuttonProps: {
 			...props.moneybuttonProps,
 			onCryptoOperations: cryptoOperations => {
+				console.log('onCryptoOperations', { props });
 				window.top.postMessage(
 					{ action: 'cryptoOperationsTwetchPay', cryptoOperations },
 					props.origin
