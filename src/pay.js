@@ -54,7 +54,6 @@ class TwetchPay {
 
 		return new Promise((resolve, reject) => {
 			window.addEventListener('message', function respond(event) {
-				console.log('respond');
 				window.removeEventListener('message', respond);
 				const data = event.data;
 
