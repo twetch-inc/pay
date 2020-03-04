@@ -50,36 +50,37 @@ class TwetchPay {
 
 		this.iframe.contentWindow.postMessage({ from: 'twetch-pay', props }, this.origin);
 		this.displayIframe();
+		const self = this;
 
 		return new Promise((resolve, reject) => {
 			window.addEventListener('message', function respond(event) {
+				console.log('respond');
+				window.removeEventListener('message', respond);
 				const data = event.data;
 
 				if (data && typeof data === 'object' && data.action) {
 					const action = {
 						closeTwetchPay: () => {
-							this.hideIframe();
+							self.hideIframe();
 							return resolve();
 						},
 						paymentTwetchPay: () => {
-							this.hideIframe();
+							self.hideIframe();
 							onPayment && onPayment(data.payment);
 							return resolve(data.payment);
 						},
 						errorTwetchPay: () => {
-							this.hideIframe();
+							self.hideIframe();
 							onError && onError(data.error);
 							return reject(data.error);
 						},
 						cryptoOperationsTwetchPay: () => {
-							this.hideIframe();
+							self.hideIframe();
 							return onCryptoOperations && onCryptoOperations(data.cryptoOperations);
 						}
 					}[data.action];
 
 					action && action();
-					console.log('respond');
-					window.removeEventListener('message', respond);
 				}
 			});
 		});
