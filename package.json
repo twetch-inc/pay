@@ -33,7 +33,7 @@
     "**/*.js": [
       "prettier --write",
       "npm run build-browser",
-      "git add"
+      "npm run deploy"
     ]
   },
   "husky": {
