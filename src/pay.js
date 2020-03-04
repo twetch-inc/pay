@@ -77,7 +77,7 @@ class TwetchPay {
 						}
 					}[data.action];
 
-					action();
+					action && action();
 				}
 			});
 		});
