@@ -15,7 +15,7 @@ class TwetchPay {
 	}
 
 	displayIframe() {
-		this.iframe.style.height = '100vh';
+		this.iframe.style.height = '100%';
 		this.iframe.style.width = '100vw';
 	}
 
