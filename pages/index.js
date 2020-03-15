@@ -40,10 +40,6 @@ const Home = () => {
 					font-family: proxima-nova, Helvetica;
 				}
 
-				body:last-child {
-					position: fixed;
-				}
-
 				* {
 					box-sizing: border-box;
 				}

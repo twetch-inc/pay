@@ -2,7 +2,6 @@ const Styles = () => (
 	<style jsx="true">{`
 		.twetch-pay-container {
 			height: 100%;
-			min-height: 100vh;
 			width: 100vw;
 			background: rgba(0, 0, 0, 0.5);
 			display: flex;
@@ -17,6 +16,9 @@ const Styles = () => (
 
 		.twetch-pay-wrapper {
 			display: flex;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
 		}
 
 		.twetch-pay {

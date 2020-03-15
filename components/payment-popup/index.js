@@ -84,7 +84,6 @@ const PaymentPopup = props => {
 
 	return (
 		<div className="twetch-pay-container" onClick={handleClose}>
-			<div className="twetch-pay-grow" />
 			<div className="twetch-pay-wrapper">
 				<div className="twetch-pay-grow" />
 				<div
