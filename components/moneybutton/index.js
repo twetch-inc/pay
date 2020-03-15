@@ -2,8 +2,8 @@ import ReactMoneyButton from '@moneybutton/react-money-button';
 
 const MoneyButton = props => {
 	const outputs = props.outputs.map(each => ({
-		...each,
-		currency: 'BSV'
+		currency: 'BSV',
+		...each
 	}));
 
 	return (

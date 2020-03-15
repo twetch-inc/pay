@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import ReactMarkdown from 'react-markdown';
 
 const content = `
@@ -71,7 +70,7 @@ const Docs = () => {
 
 				code {
 					background: #dedede;
-					lineHeight: 18px;
+					line-height: 18px;
 					padding: 0 4px;
 					border-radius: 6px;
 				}

@@ -7,7 +7,8 @@
     "build-browser": "node_modules/browserify/bin/cmd.js src/pay.js -o public/pay.js && node_modules/terser/bin/terser -o public/pay.js --module --compress --mangle -- public/pay.js && rm -f public/pay.js.tmp-* || true",
     "deploy": "now deploy --prod",
     "dev": "next dev -p 4000",
-    "start": "next start"
+    "start": "next start",
+    "lint": "./node_modules/.bin/eslint --fix ."
   },
   "dependencies": {
     "@material-ui/core": "4.9.4",
@@ -23,15 +24,24 @@
     "react-markdown": "4.3.1"
   },
   "devDependencies": {
+    "babel-eslint": "10.0.3",
     "browserify": "16.5.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-class-property": "1.1.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.18.0",
+    "eslint-plugin-react-hooks": "2.3.0",
     "husky": "4.2.3",
     "lint-staged": "10.0.8",
     "nodemon": "2.0.2",
+    "prettier": "1.19.1",
     "terser": "4.6.4"
   },
   "lint-staged": {
     "**/*.js": [
       "prettier --write",
+      "./node_modules/.bin/eslint --fix",
       "npm run build-browser"
     ]
   },

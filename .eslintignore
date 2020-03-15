@@ -1,0 +1,5 @@
+node_modules
+.next
+scripts/
+static/
+public/

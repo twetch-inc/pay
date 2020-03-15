@@ -3,7 +3,6 @@ import Styles from './styles';
 
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 
 import MoneyButton from '../moneybutton';

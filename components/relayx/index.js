@@ -9,8 +9,8 @@ const RelayX = props => {
 		}
 
 		const outputs = props.outputs.map(each => ({
-			...each,
-			currency: 'BSV'
+			currency: 'BSV',
+			...each
 		}));
 
 		const walletProps = {

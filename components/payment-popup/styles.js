@@ -4,7 +4,7 @@ const Styles = () => (
 			height: 100%;
 			min-height: 100vh;
 			width: 100vw;
-			background: rgba(0, 0, 0, .5);
+			background: rgba(0, 0, 0, 0.5);
 			display: flex;
 			flex-direction: column;
 			position: fixed;
@@ -38,7 +38,7 @@ const Styles = () => (
 		.twetch-pay-close {
 			font-size: 18px;
 			line-height: 21px;
-			color: #BDBDBD;
+			color: #bdbdbd;
 			margin: 0;
 			font-weight: normal;
 			cursor: pointer;
@@ -46,7 +46,7 @@ const Styles = () => (
 
 		.twetch-pay-body {
 			padding: 16px;
-			border-top: 2px solid #F2F2F2;
+			border-top: 2px solid #f2f2f2;
 		}
 
 		.twetch-pay-bumper {
@@ -72,20 +72,20 @@ const Styles = () => (
 			font-size: 14px;
 			line-height: 20px;
 			color: #696969;
-			padding: 12px
+			padding: 12px;
 		}
 
 		.twetch-pay-menu-item-selected {
-			color: #FFFFFF;
-			background-color: #085AF6 !important;
+			color: #ffffff;
+			background-color: #085af6 !important;
 		}
 
 		.twetch-pay-select-outlined {
-			border: 1px solid #F2F2F2 !important;
+			border: 1px solid #f2f2f2 !important;
 		}
 
 		.MuiOutlinedInput-notchedOutline {
-			border-color: #F2F2F2 !important;
+			border-color: #f2f2f2 !important;
 			border-width: 1px !important;
 		}
 	`}</style>
