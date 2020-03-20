@@ -12,6 +12,10 @@ const MoneyButton = props => {
 			{...props.moneybuttonProps}
 			outputs={outputs}
 			onPayment={payment => {
+				if (payment.cryptoOperations) {
+					props.moneybuttonProps.onCryptoOperations(payment.cryptoOperations);
+				}
+
 				return props.onPayment({ txid: payment.txid, rawtx: payment.rawtx });
 			}}
 		/>

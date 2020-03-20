@@ -1,17 +1,32 @@
+const Postmate = require('postmate');
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 class TwetchPay {
-	init() {
-		this.origin = 'https://twetch-pay.now.sh';
-		//this.origin = 'http://localhost:4000';
-		this.iframe = document.createElement('iframe');
-		this.iframe.style.border = 'none';
-		this.iframe.style.overflow = 'hidden';
-		this.iframe.style.width = '0px';
-		this.iframe.style.height = '0px';
-		this.iframe.style.position = 'fixed';
-		this.iframe.style.top = 0;
-		this.iframe.style.left = 0;
-		this.iframe.setAttribute('src', this.origin);
-		document.body.appendChild(this.iframe);
+	async init() {
+		var style = document.createElement('style');
+		style.type = 'text/css';
+		style.innerHTML = `.twetchPayFrame {
+			border: none;
+			overflow: hidden;
+			width: 0px;
+			height: 0px;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+		}`;
+		document.getElementsByTagName('head')[0].appendChild(style);
+		this.child = await new Postmate({
+			container: document.body,
+			url: 'https://twetch-pay.now.sh',
+			classListArray: ['twetchPayFrame']
+		});
+		this.iframe = this.child.frame;
+		this.child.on('init', init => {
+			this.didInit = true;
+		});
 	}
 
 	displayIframe() {
@@ -25,6 +40,12 @@ class TwetchPay {
 	}
 
 	async pay(props) {
+		if (!this.didInit) {
+			await sleep(200);
+			this.pay(props);
+			return;
+		}
+
 		let onCryptoOperations;
 		let onError;
 		let onPayment;
@@ -44,43 +65,28 @@ class TwetchPay {
 			delete props.onError;
 		}
 
-		if (!this.iframe.contentWindow) {
-			return;
-		}
-
-		this.iframe.contentWindow.postMessage({ from: 'twetch-pay', props }, this.origin);
+		this.child.call('pay', { props });
 		this.displayIframe();
 		const self = this;
 
 		return new Promise((resolve, reject) => {
-			window.addEventListener('message', function respond(event) {
-				window.removeEventListener('message', respond);
-				const data = event.data;
-
-				if (data && typeof data === 'object' && data.action) {
-					const action = {
-						closeTwetchPay: () => {
-							self.hideIframe();
-							return resolve();
-						},
-						paymentTwetchPay: () => {
-							self.hideIframe();
-							onPayment && onPayment(data.payment);
-							return resolve(data.payment);
-						},
-						errorTwetchPay: () => {
-							self.hideIframe();
-							onError && onError(data.error);
-							return reject(data.error);
-						},
-						cryptoOperationsTwetchPay: () => {
-							self.hideIframe();
-							return onCryptoOperations && onCryptoOperations(data.cryptoOperations);
-						}
-					}[data.action];
-
-					action && action();
-				}
+			self.child.on('close', () => {
+				self.hideIframe();
+				return resolve();
+			});
+			self.child.on('payment', ({ payment }) => {
+				self.hideIframe();
+				onPayment && onPayment(payment);
+				return resolve(payment);
+			});
+			self.child.on('error', ({ error }) => {
+				self.hideIframe();
+				onError && onError(error);
+				return reject(error);
+			});
+			self.child.on('cryptoOperations', ({ cryptoOperations }) => {
+				self.hideIframe();
+				return onCryptoOperations && onCryptoOperations(cryptoOperations);
 			});
 		});
 	}

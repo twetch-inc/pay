@@ -55,7 +55,7 @@ const PaymentPopup = props => {
 	);
 
 	const handleClose = () => {
-		window.parent.postMessage({ action: 'closeTwetchPay' }, props.origin);
+		props.parent.emit('close');
 	};
 
 	const walletProps = {
@@ -64,17 +64,14 @@ const PaymentPopup = props => {
 		moneybuttonProps: {
 			...props.moneybuttonProps,
 			onCryptoOperations: cryptoOperations => {
-				window.parent.postMessage(
-					{ action: 'cryptoOperationsTwetchPay', cryptoOperations },
-					props.origin
-				);
+				props.parent.emit('cryptoOperations', { cryptoOperations });
 			}
 		},
 		onError: error => {
-			window.parent.postMessage({ action: 'errorTwetchPay', error }, props.origin);
+			props.parent.emit('error', { error });
 		},
 		onPayment: payment => {
-			window.parent.postMessage({ action: 'paymentTwetchPay', payment }, props.origin);
+			props.parent.emit('payment', { payment });
 			setPaid(true);
 			setTimeout(() => {
 				setPaid(false);

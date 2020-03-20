@@ -15,6 +15,17 @@
 					amount: 0.00005,
 					currency: 'BSV'
 				}],
+				label: 'CryptoOperations',
+				moneybuttonProps: {
+					cryptoOperations: [{
+						name: 'myPublicKey',
+						method: 'public-key',
+						key: 'identity'
+					}],
+					onCryptoOperations: cryptoOperations => {
+						console.log({ cryptoOperations });
+					}
+				},
 				onPayment: payment => {
 					console.log({ payment });
 				}
