@@ -10,6 +10,7 @@
 	<script>
 		async function showTwetchPay() {
 			const response = await twetchPay.pay({
+				wallets: ['moneybutton'],
 				outputs: [{
 					to: '1harrywon46Aq2b2TK29wKviKUiDzc9EQ',
 					amount: 0.00005,

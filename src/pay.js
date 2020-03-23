@@ -20,7 +20,7 @@ class TwetchPay {
 		document.getElementsByTagName('head')[0].appendChild(style);
 		this.child = await new Postmate({
 			container: document.body,
-			url: 'https://twetch-pay.now.sh',
+			url: 'https://pay.twetch.com',
 			classListArray: ['twetchPayFrame']
 		});
 		this.iframe = this.child.frame;
@@ -93,9 +93,6 @@ class TwetchPay {
 }
 
 const twetchPay = new TwetchPay();
-
-window.addEventListener('load', function() {
-	twetchPay.init();
-});
+twetchPay.init();
 
 window.twetchPay = twetchPay;
