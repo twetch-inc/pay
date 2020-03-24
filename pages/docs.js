@@ -10,7 +10,7 @@ Currently supported wallets are Money Button and RelayX.
 The simplest Twetch Pay usage looks like this:
 \`\`\`
 // in HTML
-<script src="https://twetch-pay.now.sh/pay.js"></script>
+<script src="https://pay.twetch.com/pay.js"></script>
 
 // in javascript
 twetchPay.pay({
