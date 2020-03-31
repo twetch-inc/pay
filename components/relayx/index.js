@@ -20,6 +20,7 @@ const RelayX = props => {
 		};
 
 		delete walletProps.moneybuttonProps;
+		delete walletProps.parent;
 
 		window.relayone.render(div, {
 			...walletProps,

@@ -10,13 +10,23 @@ const Home = () => {
 	const [parent, setParent] = useState();
 
 	const listenForPay = async () => {
-		const p = await new Postmate.Model({
-			pay: ({ props }) => {
-				setPaymentProps({ ...paymentProps, ...props });
-			}
-		});
-		p.emit('init', true);
-		setParent(p);
+		try {
+			const p = await new Postmate.Model({
+				pay: ({ props }) => {
+					setPaymentProps({ ...paymentProps, ...props });
+				}
+			});
+			p.emit('init', true);
+			setParent(p);
+		} catch (e) {
+			const p = await new Postmate.Model({
+				pay: ({ props }) => {
+					setPaymentProps({ ...paymentProps, ...props });
+				}
+			});
+			p.emit('init', true);
+			setParent(p);
+		}
 	};
 
 	useEffect(() => {
