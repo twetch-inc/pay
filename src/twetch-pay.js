@@ -20,12 +20,11 @@ class TwetchPay {
 		document.getElementsByTagName('head')[0].appendChild(style);
 		this.child = await new Postmate({
 			container: document.body,
-			url: 'http://localhost:4000',
+			url: 'https://pay.twetch.com',
 			classListArray: ['twetchPayFrame']
 		});
 		this.iframe = this.child.frame;
 		this.didInit = true;
-		console.log('[PAY PARENT] - did init');
 	}
 
 	displayIframe() {
@@ -39,8 +38,6 @@ class TwetchPay {
 	}
 
 	async pay(props) {
-		console.log('[PAY PARENT] - pay()');
-
 		if (!this.didInit) {
 			await sleep(200);
 			this.pay(props);
@@ -87,7 +84,6 @@ class TwetchPay {
 			});
 			self.child.on('cryptoOperations', ({ cryptoOperations }) => {
 				self.hideIframe();
-				console.log('cryptoOperations', { cryptoOperations });
 				return onCryptoOperations && onCryptoOperations(cryptoOperations);
 			});
 		});
