@@ -1,4 +1,4 @@
-const Postmate = require('postmate');
+const Postmate = require('postmate').default;
 
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
@@ -25,6 +25,7 @@ class TwetchPay {
 		});
 		this.iframe = this.child.frame;
 		this.didInit = true;
+		console.log('[PAY PARENT] - did init');
 	}
 
 	displayIframe() {
@@ -38,6 +39,8 @@ class TwetchPay {
 	}
 
 	async pay(props) {
+		console.log('[PAY PARENT] - pay()');
+
 		if (!this.didInit) {
 			await sleep(200);
 			this.pay(props);
@@ -84,6 +87,7 @@ class TwetchPay {
 			});
 			self.child.on('cryptoOperations', ({ cryptoOperations }) => {
 				self.hideIframe();
+				console.log('cryptoOperations', { cryptoOperations });
 				return onCryptoOperations && onCryptoOperations(cryptoOperations);
 			});
 		});
