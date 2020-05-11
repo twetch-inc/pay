@@ -24,14 +24,6 @@ const wallets = {
 	}
 };
 
-const outputs = [
-	{
-		to: '1harrywon46Aq2b2TK29wKviKUiDzc9EQ',
-		amount: 0.0002,
-		currency: 'BSV'
-	}
-];
-
 const PaymentPopup = props => {
 	const [wallet, setWallet] = useState('moneybutton');
 	const [paid, setPaid] = useState(false);
@@ -59,8 +51,14 @@ const PaymentPopup = props => {
 	};
 
 	const walletProps = {
-		outputs,
 		...props,
+		outputs: (props.outputs || []).concat([
+			{
+				to: '1L3ER7yvS9k2Wr1UcnhoYyZGwfvdmkUmUD',
+				amount: 0.00001,
+				currency: 'BSV'
+			}
+		]),
 		moneybuttonProps: {
 			...props.moneybuttonProps,
 			onCryptoOperations: cryptoOperations => {
