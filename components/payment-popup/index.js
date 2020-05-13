@@ -52,13 +52,7 @@ const PaymentPopup = props => {
 
 	const walletProps = {
 		...props,
-		outputs: (props.outputs || []).concat([
-			{
-				to: '1L3ER7yvS9k2Wr1UcnhoYyZGwfvdmkUmUD',
-				amount: 0.00001,
-				currency: 'BSV'
-			}
-		]),
+		outputs: props.outputs || [],
 		moneybuttonProps: {
 			...props.moneybuttonProps,
 			onCryptoOperations: cryptoOperations => {
