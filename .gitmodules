@@ -1,0 +1,3 @@
+[submodule "shared-helpers"]
+	path = shared-helpers
+	url = git@github.com:twetch-inc/shared-helpers.git
