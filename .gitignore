@@ -25,3 +25,10 @@ yarn-debug.log*
 yarn-error.log*
 
 .now
+.now.firebase
+
+.firebase/
+firebase-debug.log
+firebase.json
+.firebaserc
+
