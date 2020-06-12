@@ -4,12 +4,18 @@ import Styles from './styles';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import VBox from '../../services/vbox-service';
 
 import MoneyButton from '../moneybutton';
+import VBoxView from '../vbox';
 import RelayX from '../relayx';
 import ProxyPay from '../proxypay';
 
 const wallets = {
+	vbox: {
+		name: 'VBox',
+		Element: VBoxView
+	},
 	moneybutton: {
 		name: 'Money Button',
 		Element: MoneyButton
@@ -33,7 +39,7 @@ const PaymentPopup = props => {
 		setWallet(evt.target.value);
 	};
 	const Wallet = wallets[wallet].Element;
-	const renderWallet = each => (
+	const renderWallet = each =>  (
 		<MenuItem
 			classes={{
 				root: 'twetch-pay-menu-item',
@@ -115,9 +121,19 @@ const PaymentPopup = props => {
 										outlined: 'twetch-pay-select-outlined'
 									}}
 								>
-									{Object.keys(wallets)
-										.filter(e => props.wallets.find(w => w === e))
-										.map(e => renderWallet(e))}
+									{
+										props.wallets.filter((item) => {
+											if (wallets[item]) {
+												if (item === 'vbox' && !VBox) {
+													return false;
+												}
+												return true;
+											}
+											return false;
+										}).map((e)  => {
+											return renderWallet(e);
+										})
+									}
 								</Select>
 							</FormControl>
 						</div>

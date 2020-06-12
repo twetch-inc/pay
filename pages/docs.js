@@ -5,7 +5,7 @@ const content = `
 
 Twetch pay is a simple way to accept payments on your website from a number of wallet providers and payment methods.
 
-Currently supported wallets are Money Button and RelayX.
+Currently supported wallets are Money Button, RelayX and Maxthon VBox.
 
 The simplest Twetch Pay usage looks like this:
 \`\`\`
@@ -23,7 +23,7 @@ twetchPay.pay({
 
 ## The twetchPay object
 
-Including the TwetchPay embed on your makes \`twetchPay\` available on the browser's \`window\` object. It has one asynchronous method, \`pay\` that resolves with 
+Including the TwetchPay embed on your makes \`twetchPay\` available on the browser's \`window\` object. It has one asynchronous method, \`pay\` that resolves with
 a payment object upon a successful payment and throws if there was an error. \`pay\` returns \`undefined\` if the payment was canceled.
 
 ## Available options:
@@ -51,6 +51,26 @@ Additional properties passed into moneybutton.
 ### relayxProps
 
 Additional propeties passed into relayx
+
+### debug
+
+Whether to enable debugging logging
+
+### appName
+
+Optional. Set application name for some wallets (such as VBox) that need it.
+Default: 'Twetch Pay'
+
+### appLogo
+
+Optional. Set application logo for some wallets (such as VBox) that need it.
+Default: 'https://twetch-app.now.sh/static/favi.png'
+
+### productName
+
+Optional. Set prodeuct name for some wallets (such as VBox) that need it.
+Default: 'Purchase'
+
 `;
 
 const Docs = () => {
