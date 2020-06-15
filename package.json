@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "build": "npm run build-browser next build",
+    "build": "next build",
     "build-browser": "node_modules/browserify/bin/cmd.js src/pay.js -o public/pay.js && node_modules/terser/bin/terser -o public/pay.js --module --compress --mangle -- public/pay.js && rm -f public/pay.js.tmp-* || true",
     "deploy": "now deploy --prod",
     "dev": "next dev -p 4000",
