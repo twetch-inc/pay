@@ -25,7 +25,11 @@ const RelayX = props => {
 		window.relayone.render(div, {
 			...walletProps,
 			onPayment: payment => {
-				return props.onPayment({ txid: payment.txid, rawtx: payment.rawTx });
+				return props.onPayment({
+					txid: payment.txid,
+					rawtx: payment.rawTx,
+					walletResponse: payment
+				});
 			}
 		});
 	};
