@@ -28,3 +28,32 @@ You can check out [the Next.js GitHub repository](https://github.com/zeit/next.j
 The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Developing Twetch Pay
+
+For development of `Pay`, use the scripts:
+
+Development:
+
+`npm run dev`
+
+Production:
+
+`npm run build`
+
+Package `pay.js` for the browser:
+
+`npm run build-browser`
+
+Deploy to remote service, export with:
+
+`npm run export`
+
+Testing the demo.html, demo-vbox.html andn demo-crypto-operations.html:
+
+Open `twetch-pay.js` and locate the `POSTMATE_TWETCH_PAY_URL` variable and update it to the location of your test site.
+
+```javascript
+// Note: Change the URL to where it is deployed to be able to test with demo-*.html pages.
+const POSTMATE_TWETCH_PAY_URL='https://pay.twetch.com'
+```

@@ -5,16 +5,7 @@ import Postmate from 'postmate';
 
 const Home = () => {
 	const [paymentProps, setPaymentProps] = useState({
-		wallets: ['vbox', 'moneybutton', 'relayx'],
-		outputs: [
-			{
-				to: "131xY3twRUJ1Y9Z9jJFKGLUa4SAdRJppcW", amount: 0.00001, currency: 'BSV'
-			}
-		],
-		// debug: false,
-		// appName: 'Twetch Pay',
-		// appLogo: 'https://twetch-app.now.sh/static/favi.png',
-		// productName: 'Purchase',
+		wallets: ['vbox', 'moneybutton', 'relayx']
 	});
 	const [parent, setParent] = useState();
 

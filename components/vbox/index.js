@@ -1,4 +1,5 @@
 import Styles from './styles';
+import { useState } from 'react';
 /**
  * Launches VBox when running Maxthon6.
  *
@@ -7,6 +8,9 @@ import Styles from './styles';
  * @param {*} props
  */
 const VBoxView = props => {
+	const [walletError, setWalletError] = useState(false);
+	const [walletErrorMessage, setWalletErrorMessage] = useState(null);
+
 	const outputs = props.outputs.map(each => ({
 		currency: 'BSV',
 		...each
@@ -15,26 +19,32 @@ const VBoxView = props => {
 	const appLogo = props.appLogo ? props.appLogo : 'https://twetch-app.now.sh/static/favi.png';
 	const productName = props.productName ? props.productName : 'Purchase';
 	let adaptedOutputs = [];
-	const MAX_SECONDS_EXPIRY = 120;
+	const MAX_SECONDS_EXPIRY = 60;
 	for (const output of outputs) {
 		adaptedOutputs.push({
 			address: output.to,
-			value: output.amount * 100000000, // Convert to satoshis
-		})
+			value: output.amount * 100000000 // Convert to satoshis
+		});
 	}
-	const launchWallet = async  () =>  {
-		if (window && !(window['VBox'])) {
+
+	const onWalletError = msg => {
+		setWalletError(true);
+		setWalletErrorMessage(msg);
+	};
+
+	const launchWallet = async () => {
+		if (window && !window['VBox']) {
 			throw new Error('VBox not found');
 		}
 		// Construct Request Data
-		const expireTime = (new Date()).getTime() + (MAX_SECONDS_EXPIRY * 1000);
+		const expireTime = new Date().getTime() + MAX_SECONDS_EXPIRY * 1000;
 		const data = {
 			v: 1,
 			app: {
 				name: appName,
-				logo: appLogo,
+				logo: appLogo
 			},
-			id: (Math.floor(Math.random() * 9007199254740990) + 1) + '', // Random ID
+			id: Math.floor(Math.random() * 9007199254740990) + 1 + '', // Random ID
 			product: productName,
 			to: adaptedOutputs,
 			broadcast: true,
@@ -47,7 +57,7 @@ const VBoxView = props => {
 		// Construct Request with base64 encoded Data
 		let requestEnvelope = {
 			pay_request: {
-				data: Buffer.from(JSON.stringify(data)).toString("base64")
+				data: Buffer.from(JSON.stringify(data)).toString('base64')
 			}
 		};
 		if (props.debug) {
@@ -58,11 +68,17 @@ const VBoxView = props => {
 				if (props.debug) {
 					console.log('VBox Data', data);
 				}
-				let response = Buffer.from(result, 'base64').toString("utf8");
+				let response = Buffer.from(result, 'base64').toString('utf8');
 				response = JSON.parse(response);
 				// If there was an error (non-zero)
 				if (response.code !== 0) {
-					console.log('error', response);
+					console.log('VBox Request Error', response);
+					let messageErrorInfo = response.message;
+					messageErrorInfo +=
+						response.message_info && response.message_info !== ''
+							? ` - ${response.message_info}`
+							: '';
+					onWalletError(messageErrorInfo);
 					return;
 				}
 				if (props.debug) {
@@ -71,16 +87,21 @@ const VBoxView = props => {
 				}
 				props.onPayment({
 					txid: response.txhash,
-					rawtx: null,
+					rawtx: response.rawtx ? response.rawtx : null,
+					walletResponse: response
 				});
 			} catch (ex) {
 				console.log(ex);
 			}
 		});
-	}
+	};
 	return (
 		<div>
-			<button className="vbox-btn" onClick={launchWallet}>Launch Wallet</button>
+			<button className="vbox-btn" onClick={launchWallet}>
+				Launch Wallet
+			</button>
+
+			{walletError && <div className="vbox-error">An error occurred: {walletErrorMessage}</div>}
 			<Styles />
 		</div>
 	);

@@ -421,6 +421,11 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Note: Change the URL to where it is deployed to be able to test with demo-*.html pages.
+const POSTMATE_TWETCH_PAY_URL = 'https://pay.twetch.com';
+// const POSTMATE_TWETCH_PAY_URL='http://localhost:3000'
+// const POSTMATE_TWETCH_PAY_URL='https://somesite.web.app'
+
 class TwetchPay {
 	async init() {
 		var style = document.createElement('style');
@@ -437,7 +442,7 @@ class TwetchPay {
 		document.getElementsByTagName('head')[0].appendChild(style);
 		this.child = await new Postmate({
 			container: document.body,
-			url: 'https://pay.twetch.com',
+			url: POSTMATE_TWETCH_PAY_URL,
 			classListArray: ['twetchPayFrame']
 		});
 		this.iframe = this.child.frame;
