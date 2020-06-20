@@ -20,6 +20,7 @@
     "postmate": "1.5.2",
     "proxypay": "0.0.6",
     "qrcode.react": "1.0.0",
+    "raw-loader": "4.0.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-load-script": "0.0.6",
