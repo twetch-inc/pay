@@ -424,7 +424,7 @@ function sleep(ms) {
 // Note: Change the URL to where it is deployed to be able to test with demo-*.html pages.
 const POSTMATE_TWETCH_PAY_URL = 'https://pay.twetch.com';
 // const POSTMATE_TWETCH_PAY_URL='http://localhost:3000'
-// const POSTMATE_TWETCH_PAY_URL='https://somesite.web.app'
+// const POSTMATE_TWETCH_PAY_URL='https://bitcoinfiles-scratch.web.app'
 
 class TwetchPay {
 	async init() {
