@@ -5,7 +5,7 @@ import Postmate from 'postmate';
 
 const Home = () => {
 	const [paymentProps, setPaymentProps] = useState({
-		wallets: ['moneybutton', 'relayx']
+		wallets: ['vbox', 'moneybutton', 'relayx']
 	});
 	const [parent, setParent] = useState();
 

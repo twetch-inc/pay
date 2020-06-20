@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>Twetch Pay Demo (VBox)</title>
+		<script src="/pay.js"></script>
+	</head>
+	<body>
+		Twetch Pay Demo (VBox)
+		<button id="button" onclick="showTwetchPay()">Click Me (Use Maxthon 6 Browser)</button>
+	</body>
+	<script>
+		async function showTwetchPay() {
+			const response = await twetchPay.pay({
+				wallets: ['vbox', 'moneybutton'],
+				outputs: [
+					{
+						to: "131xY3twRUJ1Y9Z9jJFKGLUa4SAdRJppcW", amount: 0.00001, currency: 'BSV'
+					}
+				],
+				debug: true,
+				appName: 'Twetch Pay Test',
+				appLogo: 'https://twetch-app.now.sh/static/favi.png',
+				productName: 'Purchase Test',
+				onPayment: payment => {
+					console.log({ payment });
+				},
+				onError: error => {
+					console.log({ error });
+				}
+			});
+			console.log({ response });
+		}
+	</script>
+</html>

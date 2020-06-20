@@ -4,12 +4,18 @@ import Styles from './styles';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import VBox from '../../src/vbox-service';
 
 import MoneyButton from '../moneybutton';
+import VBoxView from '../vbox';
 import RelayX from '../relayx';
 import ProxyPay from '../proxypay';
 
 const wallets = {
+	vbox: {
+		name: 'VBox',
+		Element: VBoxView
+	},
 	moneybutton: {
 		name: 'Money Button',
 		Element: MoneyButton
@@ -33,18 +39,34 @@ const PaymentPopup = props => {
 		setWallet(evt.target.value);
 	};
 	const Wallet = wallets[wallet].Element;
-	const renderWallet = each => (
-		<MenuItem
-			classes={{
-				root: 'twetch-pay-menu-item',
-				selected: 'twetch-pay-menu-item-selected'
-			}}
-			value={each}
-			key={each}
-		>
-			{wallets[each].name}
-		</MenuItem>
-	);
+
+	/**
+	 * Render all selected and available wallets.
+	 */
+	const renderWallets = walletList => {
+		const newList = [];
+		for (const walletItem of walletList) {
+			if (walletItem === 'vbox' && !VBox) {
+				// Only show 'VBox' if it's defined
+				continue;
+			}
+			newList.push(walletItem);
+		}
+		return newList.map(each => {
+			return (
+				<MenuItem
+					classes={{
+						root: 'twetch-pay-menu-item',
+						selected: 'twetch-pay-menu-item-selected'
+					}}
+					value={each}
+					key={each}
+				>
+					{wallets[each].name}
+				</MenuItem>
+			);
+		});
+	};
 
 	const handleClose = () => {
 		props.parent.emit('close');
@@ -115,9 +137,14 @@ const PaymentPopup = props => {
 										outlined: 'twetch-pay-select-outlined'
 									}}
 								>
-									{Object.keys(wallets)
-										.filter(e => props.wallets.find(w => w === e))
-										.map(e => renderWallet(e))}
+									{renderWallets(
+										props.wallets.filter(item => {
+											if (wallets[item]) {
+												return true;
+											}
+											return false;
+										})
+									)}
 								</Select>
 							</FormControl>
 						</div>
