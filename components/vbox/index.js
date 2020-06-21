@@ -36,6 +36,9 @@ const VBoxView = props => {
 		if (window && !window['VBox']) {
 			throw new Error('VBox not found');
 		}
+		if (props.debug) {
+			console.log('window.VBox', window['VBox']);
+		}
 		// Construct Request Data
 		const expireTime = new Date().getTime() + MAX_SECONDS_EXPIRY * 1000;
 		const data = {
