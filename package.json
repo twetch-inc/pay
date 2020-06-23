@@ -22,8 +22,8 @@
     "proxypay": "0.0.6",
     "qrcode.react": "1.0.0",
     "raw-loader": "4.0.1",
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
+    "react": "0.0.0-experimental-7f28234f8",
+    "react-dom": "0.0.0-experimental-7f28234f8",
     "react-load-script": "0.0.6",
     "react-markdown": "4.3.1"
   },
