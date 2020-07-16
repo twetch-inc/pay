@@ -1,59 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+## Twetch Pay
 
-## Getting Started
+Twetch pay is a simple way to accept payments on your website from a number of wallet providers and payment methods.
 
-First, run the development server:
+Currently supported wallets are Money Button, RelayX and Maxthon VBox.
 
-```bash
-npm run dev
-# or
-yarn dev
+## Installation
+
+You can install twetch pay by running
+
+```
+npm install @twetch/pay
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or you can include it in  html using
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on ZEIT Now
-
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Developing Twetch Pay
-
-For development of `Pay`, use the scripts:
-
-Development:
-
-`npm run dev`
-
-Production:
-
-`npm run build`
-
-Package `pay.js` for the browser:
-
-`npm run build-browser`
-
-Deploy to remote service, export with:
-
-`npm run export`
-
-Testing the demo.html, demo-vbox.html andn demo-crypto-operations.html:
-
-Open `twetch-pay.js` and locate the `POSTMATE_TWETCH_PAY_URL` variable and update it to the location of your test site.
-
-```javascript
-// Note: Change the URL to where it is deployed to be able to test with demo-*.html pages.
-const POSTMATE_TWETCH_PAY_URL='https://pay.twetch.com'
 ```
+<script src="https://pay.twetch.com/pay.js"></script>
+```
+
+## Usage
+
+The simplest Twetch Pay usage looks like this:
+```
+twetchPay.pay({ outputs: [{
+    to: '1harrywon46Aq2b2TK29wKviKUiDzc9EQ',
+    amount: 0.0002
+  }]
+});
+```
+
+## The twetchPay object
+
+Including the TwetchPay embed on your makes `twetchPay` available on the browser's `window` object. It has one asynchronous method, `pay` that resolves with
+a payment object upon a successful payment and throws if there was an error. `pay` returns `undefined` if the payment was canceled.
+
+## Available options:
+
+### outputs
+
+An array containing a list of output ojects. Each output object may have the following properties:
+
+- `to`: (string) - bitcoin address
+- `amount`: (number) - amount of bitcoin (BSV)
+- `script`: (string) - valid bitcoin script using ASM format
+
+### wallets
+
+A string array of available wallets for use in the widget. Options are: `moneybutton`, `relayx` and `vbox`.
+
+### onPayment
+
+A function that is called after a successful payment
+
+### onError
+
+A function that is called when an error occurs during the payment
+
+### moneybuttonProps
+
+Additional properties passed into moneybutton.
+
+### relayxProps
+
+Additional propeties passed into relayx
+
+### debug
+
+Whether to enable debugging logging
+
+### appName
+
+Optional. Set application name for some wallets (such as VBox) that need it.
+Default: 'Twetch Pay'
+
+### appLogo
+
+Optional. Set application logo for some wallets (such as VBox) that need it.
+Default: 'https://twetch-app.now.sh/static/favi.png'
+
+### productName
+
+Optional. Set prodeuct name for some wallets (such as VBox) that need it.
+Default: 'Purchase'

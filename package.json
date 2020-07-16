@@ -1,11 +1,11 @@
 {
   "name": "@twetch/pay",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "dist/pay.js",
   "browser": "dist/pay.min.js",
   "scripts": {
     "build": "next build",
-    "build-browser": "node_modules/browserify/bin/cmd.js src/pay.js -o public/pay.js && node_modules/terser/bin/terser -o public/pay.js --module --compress --mangle -- public/pay.js && rm -f public/pay.js.tmp-* || true && cp public/pay.js dist/pay.min.js && cp src/pay.js dist/pay.js",
+    "build-browser": "node_modules/browserify/bin/cmd.js src/pay.js -o public/pay.js && node_modules/terser/bin/terser -o public/pay.js --module --compress --mangle -- public/pay.js && rm -f public/pay.js.tmp-* || true && cp public/pay.js dist/pay.min.js && cp src/twetch-pay.js dist/pay.js",
     "build-complete": "next build && node_modules/browserify/bin/cmd.js src/pay.js -o public/pay.js && node_modules/terser/bin/terser -o public/pay.js --module --compress --mangle -- public/pay.js && rm -f public/pay.js.tmp-* || true && next export",
     "deploy": "now deploy --prod",
     "dev": "next dev -p 4000",
