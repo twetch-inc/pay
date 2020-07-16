@@ -1,0 +1,16 @@
+.next
+.now
+components
+pages
+public
+services
+src
+.DS_Store
+.eslintignore
+.eslintrc.js
+.gitignore
+.prettierignore
+.prettierrc
+next.config.js
+yarn.lock
+package-lock.json
