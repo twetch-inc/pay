@@ -1,6 +1,6 @@
 {
   "name": "@twetch/pay",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/pay.js",
   "browser": "dist/pay.min.js",
   "scripts": {
