@@ -19,9 +19,10 @@ const RelayX = props => {
 			outputs
 		};
 
-		window.relayone.authRedirectUrl(walletProps.hostUrl || "")
+		delete walletProps.moneybuttonProps;
+		delete walletProps.parent;
 
-
+		window.relayone.authRedirectUrl(walletProps.hostUrl || '');
 		window.relayone.render(div, {
 			...walletProps,
 			onPayment: payment => {
