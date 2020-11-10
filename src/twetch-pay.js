@@ -488,7 +488,7 @@ class TwetchPay {
 			delete props.onError;
 		}
 
-		this.child.call('pay', { props });
+		this.child.call('pay', { props, hostUrl: window.location.toString() });
 		this.displayIframe();
 		const self = this;
 
