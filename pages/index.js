@@ -12,8 +12,8 @@ const Home = () => {
 	const listenForPay = async () => {
 		try {
 			const p = await new Postmate.Model({
-				pay: ({ props }) => {
-					setPaymentProps({ ...paymentProps, ...props });
+				pay: ({ props, hostUrl }) => {
+					setPaymentProps({ ...paymentProps, ...props, hostUrl });
 				}
 			});
 			p.emit('init', true);
@@ -21,7 +21,7 @@ const Home = () => {
 		} catch (e) {
 			const p = await new Postmate.Model({
 				pay: ({ props }) => {
-					setPaymentProps({ ...paymentProps, ...props });
+					setPaymentProps({ ...paymentProps, ...props, hostUrl });
 				}
 			});
 			p.emit('init', true);
